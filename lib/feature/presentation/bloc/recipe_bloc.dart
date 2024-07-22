@@ -57,7 +57,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
               id: _editableRecipeId!,
               name: recipe.name,
               category: recipe.category,
-              ingredients: recipe.name
+              ingredients: recipe.ingredients
           );
 
           editRecipe(updatedRecipe);
