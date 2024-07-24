@@ -1,7 +1,7 @@
 # bt_recipe_management_task
 Flutter application that manages a list of recipes
 
-## Note: Run pub get to install bloc and run the code
+### Note: Please Run pub get to install bloc and run the code
 
 ### Architecture used
 CLEAN Architecture
@@ -9,7 +9,7 @@ CLEAN Architecture
 ### State management solution used
 Bloc State Management
 
-### Folder Structure with CLEAN Architecture and Bloc State Management Solution
+### Folder Structure
 ![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/11.png)
 
 ### Task performed

@@ -86,6 +86,23 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(AllRecipesDeleted());
     });
 
+    /* Map GetAllRecipesEvent to State */
+
+    on<GetAllRecipesEvent>((event, emit) {
+      print("ddd");
+      final searchedRecipes = searchRecipes("");
+      emit(RecipesSearched(searchedRecipes));
+    });
+
+    /* Map RecipeExistenceEvent to State */
+
+    on<RecipeExistenceEvent>((event, emit) {
+      bool isExists = alreadyExistRecipe(event.recipe);
+      if (isExists) {
+        emit(const ErrorRecipe(StringConst.recipeAlreadyExists));
+      }
+    });
+
     /* Map EditRecipeEventAction to State */
 
     on<EditRecipeEventAction>((event, emit) {

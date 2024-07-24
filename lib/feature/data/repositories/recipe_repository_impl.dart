@@ -6,6 +6,10 @@ import '../models/recipe.dart';
 class RecipeRepositoryImpl implements RecipeRepository {
   List<Recipe> _recipes = [];
 
+  RecipeRepositoryImpl({List<Recipe>? recipes = null}) {
+    _recipes = recipes ?? [];
+  }
+
   @override
   void addRecipe(Recipe recipe) {
     _recipes.add(recipe);

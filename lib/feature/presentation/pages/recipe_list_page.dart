@@ -15,6 +15,7 @@ class RecipeListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<RecipeBloc>().add(GetAllRecipesEvent());
     return Scaffold(
       backgroundColor: AppColor.screenBackground,
       appBar: appBar(StringConst.appTitle),

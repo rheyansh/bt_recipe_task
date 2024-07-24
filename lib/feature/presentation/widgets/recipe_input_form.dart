@@ -140,6 +140,7 @@ class RecipeInputForm extends StatelessWidget {
   /* Returns delete all icon button */
   Widget _deleteAllIconButton(BuildContext context) {
     return IconButton(
+      key: const Key('deleteAll'),
       onPressed: () {
         context.read<RecipeBloc>().add(DeleteAllRecipesEvent());
       },
