@@ -38,11 +38,11 @@ void main() {
 
   group('RecipeBloc', () {
     test('initial state is RecipeInitial', () {
-      expect(recipeBloc.state, RecipeInitial());
+      expect(recipeBloc.state, const RecipeLoadSuccess([]));
     });
 
     blocTest<RecipeBloc, RecipeState>(
-      'emits [RecipeAdded, RecipesSearched] when a recipe is added',
+      'emits [RecipeAdded, RecipeLoadSuccess] when a recipe is added',
       build: () {
         final recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
         when(mockRecipeRepository.isRecipeAlreadyExists(recipe)).thenReturn(false);
@@ -51,7 +51,7 @@ void main() {
       act: (bloc) => bloc.add(AddRecipeEvent(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion'))),
       expect: () => [
         RecipeAdded(),
-        isA<RecipesSearched>(),
+        isA<RecipeLoadSuccess>(),
       ],
     );
 
@@ -59,23 +59,25 @@ void main() {
       'emits [ErrorRecipe] when adding an existing recipe',
       build: () {
         final recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-        when(mockRecipeRepository.isRecipeAlreadyExists(recipe)).thenReturn(false);
+        when(mockRecipeRepository.isRecipeAlreadyExists(recipe)).thenReturn(true);
         return recipeBloc;
       },
       act: (bloc) => bloc.add(AddRecipeEvent(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion'))),
       expect: () => [
         const ErrorRecipe(StringConst.recipeAlreadyExists),
+        isA<RecipeLoadSuccess>(),
       ],
     );
 
     blocTest<RecipeBloc, RecipeState>(
-      'emits [RecipeDeleted, RecipesSearched] when a recipe is deleted',
+      'emits [RecipeDeleted, RecipeLoadSuccess] when a recipe is deleted',
       build: () {
         return recipeBloc;
       },
-      act: (bloc) => bloc.add(DeleteRecipeEvent(1)),
+      act: (bloc) => bloc.add(const DeleteRecipeEvent(1)),
       expect: () => [
-        isA<RecipesSearched>(),
+        RecipeDeleted(),
+        isA<RecipeLoadSuccess>(),
       ],
     );
 
@@ -98,9 +100,10 @@ void main() {
     },
     act: (bloc) => bloc.add(FilterRecipesEvent('Main')),
     expect: () => [
-    RecipesFiltered([]),
+      RecipeFilterSuccess([]),
     ],
   );
+
 
   blocTest<RecipeBloc, RecipeState>(
     'emits [RecipesSearched] when recipes are searched',
@@ -108,9 +111,9 @@ void main() {
       when(mockRecipeRepository.searchRecipes('Pasta')).thenReturn([]);
       return recipeBloc;
     },
-    act: (bloc) => bloc.add(SearchRecipesEvent('Pasta')),
+    act: (bloc) => bloc.add(const SearchRecipesEvent('Pasta')),
     expect: () => [
-      RecipesSearched([]),
+      const RecipeSearchSuccess([]),
     ],
   );
 });

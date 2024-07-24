@@ -32,6 +32,27 @@ void main() {
     );
   });
 
+  testWidgets('RecipeListPage displays list of recipes', (WidgetTester tester) async {
+    // Add a recipe to the repository
+    recipeRepository.addRecipe(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'));
+
+    // Pump the widget tree with RecipeListPage
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BlocProvider<RecipeBloc>(
+          create: (_) => recipeBloc,
+          child: const RecipeListPage(),
+        ),
+      ),
+    );
+
+    // Allow the UI to settle
+    await tester.pumpAndSettle();
+
+    // Expect to find the added recipe in the UI
+    expect(find.text('Pasta'), findsOneWidget);
+  });
+
   testWidgets('Deleting a recipe updates the list', (WidgetTester tester) async {
     recipeRepository.addRecipe(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'));
     await tester.pumpAndSettle();

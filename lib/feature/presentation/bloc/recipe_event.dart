@@ -11,6 +11,10 @@ abstract class RecipeEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/* Event to load recipes */
+
+class LoadRecipesEvent extends RecipeEvent {}
+
 /* Event to add recipe */
 
 class AddRecipeEvent extends RecipeEvent {

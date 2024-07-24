@@ -39,6 +39,17 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     required this.searchRecipes,
   }) : super(RecipeInitial()) {
 
+    // load recipes
+    on<LoadRecipesEvent>((event, emit) async {
+      emit(RecipeLoadInProgress());
+      try {
+        final recipes = searchRecipes("");
+        emit(RecipeLoadSuccess(recipes));
+      } catch (err) {
+        emit(RecipeLoadFailure());
+      }
+    });
+
     /* Map AddRecipeEvent to State */
 
     on<AddRecipeEvent>((event, emit) {
@@ -68,15 +79,16 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         emit(RecipeAdded());
       }
       final searchedRecipes = searchRecipes("");
-      emit(RecipesSearched(searchedRecipes));
+      emit(RecipeLoadSuccess(searchedRecipes));
     });
 
     /* Map DeleteRecipeEvent to State */
 
     on<DeleteRecipeEvent>((event, emit) {
       deleteRecipe(event.id);
+      emit(RecipeDeleted());
       final searchedRecipes = searchRecipes("");
-      emit(RecipesSearched(searchedRecipes));
+      emit(RecipeLoadSuccess(searchedRecipes));
     });
 
     /* Map DeleteAllRecipesEvent to State */
@@ -89,9 +101,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     /* Map GetAllRecipesEvent to State */
 
     on<GetAllRecipesEvent>((event, emit) {
-      print("ddd");
       final searchedRecipes = searchRecipes("");
-      emit(RecipesSearched(searchedRecipes));
+      emit(RecipeLoadSuccess(searchedRecipes));
     });
 
     /* Map RecipeExistenceEvent to State */
@@ -109,7 +120,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       _editableRecipeId = event.recipe.id;
       emit(RecipeEditAction(event.recipe));
       final searchedRecipes = searchRecipes("");
-      emit(RecipesSearched(searchedRecipes));
+      emit(RecipeLoadSuccess(searchedRecipes));
     });
 
     /* Map ErrorRecipeEvent to State */
@@ -117,21 +128,24 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<ErrorRecipeEvent>((event, emit) {
       emit(ErrorRecipe(event.message));
       final searchedRecipes = searchRecipes("");
-      emit(RecipesSearched(searchedRecipes));
+      emit(RecipeLoadSuccess(searchedRecipes));
     });
 
     /* Map FilterRecipesEvent to State */
 
     on<FilterRecipesEvent>((event, emit) {
       final filteredRecipes = filterRecipes(event.category);
-      emit(RecipesFiltered(filteredRecipes));
+      emit(RecipeFilterSuccess(filteredRecipes));
     });
 
     /* Map SearchRecipesEvent to State */
 
     on<SearchRecipesEvent>((event, emit) {
       final searchedRecipes = searchRecipes(event.query);
-      emit(RecipesSearched(searchedRecipes));
+      emit(RecipeSearchSuccess(searchedRecipes));
     });
+
+    // Automatically load recipes on initialization
+    add(LoadRecipesEvent());
   }
 }

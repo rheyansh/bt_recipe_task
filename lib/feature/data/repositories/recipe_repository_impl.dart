@@ -52,7 +52,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
 
   @override
   List<Recipe> searchRecipes(String query) {
-    return _recipes.where((recipe) => recipe.name.toLowerCase().contains(query.toLowerCase())).toList();
+    return _recipes.where((recipe) => recipe.name.toLowerCase().contains(query.toLowerCase())).toList() ?? [];
   }
 
   @override

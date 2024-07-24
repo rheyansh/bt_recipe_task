@@ -15,7 +15,6 @@ class RecipeListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipeBloc>().add(GetAllRecipesEvent());
     return Scaffold(
       backgroundColor: AppColor.screenBackground,
       appBar: appBar(StringConst.appTitle),
@@ -75,10 +74,18 @@ class RecipeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) {
-        if (state is RecipesFiltered || state is RecipesSearched) {
-          final recipes = state is RecipesFiltered
-              ? state.filteredRecipes
-              : (state as RecipesSearched).searchedRecipes;
+
+        if (state is RecipeLoadInProgress) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is RecipeLoadSuccess || state is RecipeFilterSuccess || state is RecipeSearchSuccess) {
+          List<Recipe> recipes = [];
+          if (state is RecipeLoadSuccess) {
+            recipes = state.recipes;
+          } else if (state is RecipeFilterSuccess) {
+            recipes = state.recipes;
+          } else if (state is RecipeSearchSuccess) {
+            recipes = state.recipes;
+          }
           return ListView.builder(
             itemCount: recipes.length,
             itemBuilder: (context, index) {
@@ -88,9 +95,10 @@ class RecipeList extends StatelessWidget {
               });
             },
           );
-        } else {
-          return const Center(child: Text(StringConst.noRecipeAvailable));
+        } else if (state is RecipeLoadFailure) {
+          return const Center(child: Text(StringConst.failedToLoad));
         }
+        return const Center(child: Text(StringConst.noRecipeAvailable));
       },
     );
   }
