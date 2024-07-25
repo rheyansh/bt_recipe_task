@@ -40,6 +40,8 @@ class RecipeListPage extends StatelessWidget {
 }
 
 class RecipeFilter extends StatelessWidget {
+  const RecipeFilter({super.key});
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -55,6 +57,8 @@ class RecipeFilter extends StatelessWidget {
 }
 
 class RecipeSearch extends StatelessWidget {
+  const RecipeSearch({super.key});
+
   @override
   Widget build(BuildContext context) {
     return TextField(

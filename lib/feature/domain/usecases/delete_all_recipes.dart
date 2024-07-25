@@ -1,5 +1,4 @@
 import '../../data/repositories/recipe_repository.dart';
-import '../../data/models/recipe.dart';
 
 class DeleteAllRecipes {
   final RecipeRepository repository;
