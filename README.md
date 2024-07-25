@@ -58,14 +58,14 @@ D) Listed Widget Test Cases written for Recipe Detail Page
 	1.	User taps on recipe and navigates to recipe details page and info is showing
 
 ### Web
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/1.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/2.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/1.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/2.png)
 
 ### Mobile
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/3.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/4.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/5.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/6.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/3.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/4.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/5.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/6.png)
 
 # Author
 
