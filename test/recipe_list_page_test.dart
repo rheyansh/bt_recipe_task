@@ -5,7 +5,6 @@ import 'package:bt_recipe_management_task/feature/presentation/widgets/recipe_ro
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bt_recipe_management_task/feature/data/models/recipe.dart';
-import 'package:bt_recipe_management_task/feature/data/repositories/recipe_repository.dart';
 import 'package:bt_recipe_management_task/feature/presentation/bloc/recipe_bloc.dart';
 import 'package:bt_recipe_management_task/feature/presentation/pages/recipe_list_page.dart';
 import 'package:bt_recipe_management_task/feature/domain/usecases/add_recipe.dart';
@@ -15,7 +14,6 @@ import 'package:bt_recipe_management_task/feature/domain/usecases/edit_recipe.da
 import 'package:bt_recipe_management_task/feature/domain/usecases/filter_recipes.dart';
 import 'package:bt_recipe_management_task/feature/domain/usecases/search_recipes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mockito/mockito.dart';
 
 void main() {
   late RecipeRepositoryImpl recipeRepository;
