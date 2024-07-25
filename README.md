@@ -23,6 +23,40 @@ Bloc State Management
 * Check if input field is valid or not
 * Check id recipe is already exists or not
 
+Added lTDD and BDD:
+
+A) Listed Unit Test Cases written for Recipe Repository
+
+	1.	Should add a recipe
+	2.	Should delete a recipe by id
+	3.	Should clear all recipes
+	4.	Should edit a recipe
+	5.	Should check if recipe already exists
+	6.	Should filter recipes by category
+	7.	Should search recipes by name
+
+B) Listed Unit Test Cases written for Recipe Bloc
+
+	1.	emits [RecipeAdded, RecipeLoadSuccess] when a recipe is added
+	2.	emits [ErrorRecipe] when adding an existing recipe
+	3.	emits [RecipeDeleted, RecipeLoadSuccess] when a recipe is deleted
+	4.	emits [AllRecipesDeleted] when all recipes are deleted
+	5.	emits [RecipesFiltered] when recipes are filtered
+	6.	emits [RecipesSearched] when recipes are searched
+
+C) Listed Widget Test Cases written for Recipe List Page
+
+	1.	RecipeListPage displays list of recipes
+	2.	Deleting a recipe updates the list
+	3.	Adding a recipe updates the list
+	4.	Deleting all recipes updates the list
+	5.	Searching recipes updates the list
+	6.	Filtering recipes updates the list
+
+D) Listed Widget Test Cases written for Recipe Detail Page
+
+	1.	User taps on recipe and navigates to recipe details page and info is showing
+
 ### Web
 ![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/1.png)
 ![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/2.png)
