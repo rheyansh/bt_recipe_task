@@ -7,6 +7,6 @@ class AlreadyExistRecipe {
   AlreadyExistRecipe(this.repository);
 
   bool call(Recipe recipe) {
-    return repository.isRecipeAlreadyExists(recipe);
+    return repository.isRecipeAlreadyExists(recipe) ?? false;
   }
 }

@@ -40,6 +40,8 @@ class RecipeListPage extends StatelessWidget {
 }
 
 class RecipeFilter extends StatelessWidget {
+  const RecipeFilter({super.key});
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -55,6 +57,8 @@ class RecipeFilter extends StatelessWidget {
 }
 
 class RecipeSearch extends StatelessWidget {
+  const RecipeSearch({super.key});
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -74,10 +78,18 @@ class RecipeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) {
-        if (state is RecipesFiltered || state is RecipesSearched) {
-          final recipes = state is RecipesFiltered
-              ? state.filteredRecipes
-              : (state as RecipesSearched).searchedRecipes;
+
+        if (state is RecipeLoadInProgress) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is RecipeLoadSuccess || state is RecipeFilterSuccess || state is RecipeSearchSuccess) {
+          List<Recipe> recipes = [];
+          if (state is RecipeLoadSuccess) {
+            recipes = state.recipes;
+          } else if (state is RecipeFilterSuccess) {
+            recipes = state.recipes;
+          } else if (state is RecipeSearchSuccess) {
+            recipes = state.recipes;
+          }
           return ListView.builder(
             itemCount: recipes.length,
             itemBuilder: (context, index) {
@@ -87,9 +99,10 @@ class RecipeList extends StatelessWidget {
               });
             },
           );
-        } else {
-          return const Center(child: Text(StringConst.noRecipeAvailable));
+        } else if (state is RecipeLoadFailure) {
+          return const Center(child: Text(StringConst.failedToLoad));
         }
+        return const Center(child: Text(StringConst.noRecipeAvailable));
       },
     );
   }

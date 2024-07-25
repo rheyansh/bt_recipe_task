@@ -11,6 +11,39 @@ abstract class RecipeState extends Equatable {
 /* Initial state */
 class RecipeInitial extends RecipeState {}
 
+/* State on Recipe load */
+class RecipeLoadInProgress extends RecipeState {}
+
+/* State on Recipe success */
+class RecipeLoadSuccess extends RecipeState {
+  final List<Recipe> recipes;
+  const RecipeLoadSuccess(this.recipes);
+
+  @override
+  List<Object> get props => [recipes];
+}
+
+/* State on recipe filter success */
+class RecipeFilterSuccess extends RecipeState {
+  final List<Recipe> recipes;
+  const RecipeFilterSuccess(this.recipes);
+
+  @override
+  List<Object> get props => [recipes];
+}
+
+/* State on recipe search success */
+class RecipeSearchSuccess extends RecipeState {
+  final List<Recipe> recipes;
+  const RecipeSearchSuccess(this.recipes);
+
+  @override
+  List<Object> get props => [recipes];
+}
+
+/* State on Recipe failure */
+class RecipeLoadFailure extends RecipeState {}
+
 /* State on Recipe added */
 class RecipeAdded extends RecipeState {}
 
@@ -30,7 +63,7 @@ class RecipeEditAction extends RecipeState {
   List<Object> get props => [recipe];
 }
 
-/* State on to trigger error message */
+/* State to trigger error message */
 
 class ErrorRecipe extends RecipeState {
   final String message;
@@ -39,26 +72,4 @@ class ErrorRecipe extends RecipeState {
 
   @override
   List<Object> get props => [message];
-}
-
-/* State on emit filtered recipes */
-
-class RecipesFiltered extends RecipeState {
-  final List<Recipe> filteredRecipes;
-
-  const RecipesFiltered(this.filteredRecipes);
-
-  @override
-  List<Object> get props => [filteredRecipes];
-}
-
-/* State on emit search result of recipes */
-
-class RecipesSearched extends RecipeState {
-  final List<Recipe> searchedRecipes;
-
-  const RecipesSearched(this.searchedRecipes);
-
-  @override
-  List<Object> get props => [searchedRecipes];
 }

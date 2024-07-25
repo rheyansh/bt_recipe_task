@@ -7,6 +7,6 @@ class SearchRecipes {
   SearchRecipes(this.repository);
 
   List<Recipe> call(String query) {
-    return repository.searchRecipes(query);
+    return repository.searchRecipes(query) ?? [];
   }
 }

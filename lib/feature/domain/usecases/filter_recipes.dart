@@ -7,6 +7,6 @@ class FilterRecipes {
   FilterRecipes(this.repository);
 
   List<Recipe> call(String category) {
-    return repository.filterRecipes(category);
+    return repository.filterRecipes(category) ?? [];
   }
 }

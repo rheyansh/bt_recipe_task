@@ -19,6 +19,7 @@ class StringConst {
   static const String error = 'Error';
   static const String noRecipeAvailable = 'No recipes available';
   static const String recipeDetail = 'Recipe Detail';
+  static const String failedToLoad = 'Failed to load recipe';
 
 
 }

@@ -6,6 +6,10 @@ import '../models/recipe.dart';
 class RecipeRepositoryImpl implements RecipeRepository {
   List<Recipe> _recipes = [];
 
+  RecipeRepositoryImpl({List<Recipe>? recipes = null}) {
+    _recipes = recipes ?? [];
+  }
+
   @override
   void addRecipe(Recipe recipe) {
     _recipes.add(recipe);
@@ -48,7 +52,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
 
   @override
   List<Recipe> searchRecipes(String query) {
-    return _recipes.where((recipe) => recipe.name.toLowerCase().contains(query.toLowerCase())).toList();
+    return _recipes.where((recipe) => recipe.name.toLowerCase().contains(query.toLowerCase())).toList() ?? [];
   }
 
   @override

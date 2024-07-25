@@ -11,6 +11,10 @@ abstract class RecipeEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/* Event to load recipes */
+
+class LoadRecipesEvent extends RecipeEvent {}
+
 /* Event to add recipe */
 
 class AddRecipeEvent extends RecipeEvent {
@@ -44,14 +48,21 @@ class DeleteRecipeEvent extends RecipeEvent {
   List<Object> get props => [id];
 }
 
-/* Event to delete all recipes */
-
-class DeleteAllRecipesEvent extends RecipeEvent {}
-
+/* Event to edit recipe action */
 class EditRecipeEventAction extends RecipeEvent {
   final Recipe recipe;
 
   const EditRecipeEventAction(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
+}
+
+/* event to check if recipe already exists or not */
+class RecipeExistenceEvent extends RecipeEvent {
+  final Recipe recipe;
+
+  const RecipeExistenceEvent(this.recipe);
 
   @override
   List<Object> get props => [recipe];
@@ -78,3 +89,9 @@ class SearchRecipesEvent extends RecipeEvent {
   @override
   List<Object> get props => [query];
 }
+
+/* Event to delete all recipes */
+class DeleteAllRecipesEvent extends RecipeEvent {}
+
+/* Event to get all recipes */
+class GetAllRecipesEvent extends RecipeEvent {}

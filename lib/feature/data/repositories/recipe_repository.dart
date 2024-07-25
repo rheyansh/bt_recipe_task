@@ -12,9 +12,9 @@ abstract class RecipeRepository {
 
   void editRecipe(Recipe recipe);
 
-  bool isRecipeAlreadyExists(Recipe recipe);
+  bool? isRecipeAlreadyExists(Recipe recipe);
 
-  List<Recipe> filterRecipes(String category);
+  List<Recipe>? filterRecipes(String category);
 
-  List<Recipe> searchRecipes(String query);
+  List<Recipe>? searchRecipes(String query);
 }
