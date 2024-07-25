@@ -10,7 +10,7 @@ CLEAN Architecture
 Bloc State Management
 
 ### Folder Structure
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/11.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/folder_struct.png)
 
 ### Task performed
 	1.	Add recipe
@@ -58,14 +58,14 @@ D) Listed Widget Test Cases written for Recipe Detail Page
 	1.	User taps on recipe and navigates to recipe details page and info is showing
 
 ### Web
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/1.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/2.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/web_1.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/web_2.png)
 
 ### Mobile
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/3.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/4.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/5.png)
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/6.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/mob_1.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/mob_2.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/mob_3.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/mob_4.png)
 
 # Author
 
