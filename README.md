@@ -23,7 +23,7 @@ Bloc State Management
 	8.	Check if input field is valid or not
 	9.	Check id recipe is already exists or not
 
-### Added lTDD and BDD:
+### Added TDD and BDD:
 
 A) Listed Unit Test Cases written for Recipe Repository
 
