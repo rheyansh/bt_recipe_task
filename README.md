@@ -10,20 +10,20 @@ CLEAN Architecture
 Bloc State Management
 
 ### Folder Structure
-![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/master/Screenshots/11.png)
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/11.png)
 
 ### Task performed
-* Add recipe
-* Edit recipe
-* Delete Recipe
-* Delete all recipes
-* Filter recipes based on categories
-* Search recipes based on title (i.e name)
-* On recipe list items, navigate to recipe detail page
-* Check if input field is valid or not
-* Check id recipe is already exists or not
+	1.	Add recipe
+	2.	Edit recipe
+	3.	Delete Recipe
+	4.	Delete all recipes
+	5.	Filter recipes based on categories
+	6.	Search recipes based on title (i.e name)
+	7.	On recipe list items, navigate to recipe detail page
+	8.	Check if input field is valid or not
+	9.	Check id recipe is already exists or not
 
-Added lTDD and BDD:
+### Added lTDD and BDD:
 
 A) Listed Unit Test Cases written for Recipe Repository
 
