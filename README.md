@@ -14,6 +14,7 @@ Bloc State Management
 
 ### Code coverage percentage 
 73.7%
+![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/code_coverage.png)
 
 ### Task performed
 	1.	Add recipe
