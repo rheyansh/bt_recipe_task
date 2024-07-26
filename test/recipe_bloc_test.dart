@@ -45,11 +45,11 @@ void main() {
     blocTest<RecipeBloc, RecipeState>(
       'emits [RecipeAdded, RecipeLoadSuccess] when a recipe is added',
       build: () {
-        final recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
+        const recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
         when(mockRecipeRepository.isRecipeAlreadyExists(recipe)).thenReturn(false);
         return recipeBloc;
       },
-      act: (bloc) => bloc.add(AddRecipeEvent(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion'))),
+      act: (bloc) => bloc.add(const AddRecipeEvent(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion'))),
       expect: () => [
         RecipeAdded(),
         isA<RecipeLoadSuccess>(),
@@ -59,11 +59,11 @@ void main() {
     blocTest<RecipeBloc, RecipeState>(
       'emits [ErrorRecipe] when adding an existing recipe',
       build: () {
-        final recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
+        const recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
         when(mockRecipeRepository.isRecipeAlreadyExists(recipe)).thenReturn(true);
         return recipeBloc;
       },
-      act: (bloc) => bloc.add(AddRecipeEvent(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion'))),
+      act: (bloc) => bloc.add(const AddRecipeEvent(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion'))),
       expect: () => [
         const ErrorRecipe(StringConst.recipeAlreadyExists),
         isA<RecipeLoadSuccess>(),
@@ -99,9 +99,9 @@ void main() {
       when(mockRecipeRepository.filterRecipes('Main')).thenReturn([]);
       return recipeBloc;
     },
-    act: (bloc) => bloc.add(FilterRecipesEvent('Main')),
+    act: (bloc) => bloc.add(const FilterRecipesEvent('Main')),
     expect: () => [
-      RecipeFilterSuccess([]),
+      const RecipeFilterSuccess([]),
     ],
   );
 

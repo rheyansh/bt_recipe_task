@@ -173,7 +173,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Find the recipe in the list and tap on it
-    final recipeFinder = find.text('Pasta');
+    final recipeFinder = find.byType(RecipeRow);
     expect(recipeFinder, findsOneWidget);
     await tester.tap(recipeFinder);
 
