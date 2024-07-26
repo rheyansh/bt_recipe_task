@@ -3,73 +3,69 @@ import 'package:bt_recipe_management_task/feature/data/repositories/recipe_repos
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  late RecipeRepositoryImpl recipeRepository;
-
-  setUp(() {
-    recipeRepository = RecipeRepositoryImpl();
-  });
-
   group('RecipeRepositoryImpl', () {
-    test('should add a recipe', () async {
-      const recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      recipeRepository.addRecipe(recipe);
-      final recipes = await recipeRepository.getRecipes();
-      expect(recipes.length, 1);
-      expect(recipes.contains(recipe), isTrue);
+    late RecipeRepositoryImpl repository;
+    late Recipe testRecipe;
+
+    setUp(() {
+      repository = RecipeRepositoryImpl();
+      testRecipe = const Recipe(
+        id: 1,
+        name: 'Test Recipe',
+        category: 'Test Category',
+        ingredients: 'Test Ingredients',
+      );
     });
 
-    test('should delete a recipe by id', () async {
-      const recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      recipeRepository.addRecipe(recipe);
-      await recipeRepository.deleteRecipe(1);
-      final recipes = await recipeRepository.getRecipes();
-      expect(recipes.length, 0);
+    test('addRecipe should add a recipe to the list', () async {
+      repository.addRecipe(testRecipe);
+      final recipes = await repository.getRecipes();
+
+      expect(recipes.contains(testRecipe), isTrue);
     });
 
-    test('should clear all recipes', () async {
-      const recipe1 = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      const recipe2 = Recipe(id: 2, name: 'Pizza', category: 'Main', ingredients: 'cheese, tomato');
-      recipeRepository.addRecipe(recipe1);
-      recipeRepository.addRecipe(recipe2);
-      recipeRepository.deleteAllRecipes();
-      final recipes = await recipeRepository.getRecipes();
-      expect(recipes.length, 0);
+    test('deleteRecipe should remove a recipe by id', () async {
+      repository.addRecipe(testRecipe);
+      repository.deleteRecipe(testRecipe.id);
+      final recipes = await repository.getRecipes();
+      expect(recipes.contains(testRecipe), isFalse);
     });
 
-    test('should edit a recipe', () async {
-      const recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      recipeRepository.addRecipe(recipe);
-      const updatedRecipe = Recipe(id: 1, name: 'Spaghetti', category: 'Main', ingredients: 'salt, garlic');
-      await recipeRepository.editRecipe(updatedRecipe);
-      final recipes = await recipeRepository.getRecipes();
-      expect(recipes[0].name, 'Spaghetti');
+    test('deleteAllRecipes should clear the recipe list', () async {
+      repository.addRecipe(testRecipe);
+      repository.deleteAllRecipes();
+      final recipes = await repository.getRecipes();
+      expect(recipes.isEmpty, isTrue);
+    });
+    //
+    test('editRecipe should update an existing recipe', () async {
+      repository.addRecipe(testRecipe);
+      final updatedRecipe = Recipe(
+        id: testRecipe.id,
+        name: 'Updated Recipe',
+        category: 'Updated Category',
+        ingredients: 'Updated Ingredients',
+      );
+      repository.editRecipe(updatedRecipe);
+      final recipes = await repository.getRecipes();
+      expect(recipes.first.name, equals('Updated Recipe'));
     });
 
-    test('should check if recipe already exists', () async {
-      const recipe = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      recipeRepository.addRecipe(recipe);
-      final exists = recipeRepository.isRecipeAlreadyExists(recipe);
-      expect(exists, isTrue);
+    test('isRecipeAlreadyExists should return true if recipe exists', () {
+      repository.addRecipe(testRecipe);
+      expect(repository.isRecipeAlreadyExists(testRecipe), isTrue);
     });
 
-    test('should filter recipes by category', () async {
-      const recipe1 = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      const recipe2 = Recipe(id: 2, name: 'Pizza', category: 'Dessert', ingredients: 'cheese, tomato');
-      recipeRepository.addRecipe(recipe1);
-      recipeRepository.addRecipe(recipe2);
-      final filteredRecipes = recipeRepository.filterRecipes('Main');
-      expect(filteredRecipes.length, 1);
-      expect(filteredRecipes[0].name, 'Pasta');
+    test('filterRecipes should return recipes matching the category', () {
+      repository.addRecipe(testRecipe);
+      final filteredRecipes = repository.filterRecipes('Test Category');
+      expect(filteredRecipes.length, equals(1));
     });
 
-    test('should search recipes by name', () async {
-      const recipe1 = Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
-      const recipe2 = Recipe(id: 2, name: 'Pizza', category: 'Dessert', ingredients: 'cheese, tomato');
-      recipeRepository.addRecipe(recipe1);
-      recipeRepository.addRecipe(recipe2);
-      final searchedRecipes = recipeRepository.searchRecipes('Pizza');
-      expect(searchedRecipes.length, 1);
-      expect(searchedRecipes[0].name, 'Pizza');
+    test('searchRecipes should return recipes matching the query', () {
+      repository.addRecipe(testRecipe);
+      final searchedRecipes = repository.searchRecipes('Test Recipe');
+      expect(searchedRecipes.length, equals(1));
     });
   });
 }

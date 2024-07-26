@@ -18,11 +18,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   late RecipeRepositoryImpl recipeRepository;
   late RecipeBloc recipeBloc;
+  late Recipe recipe1;
+  late Recipe recipe2;
 
   setUp(() {
-    recipeRepository = RecipeRepositoryImpl(recipes: [
-      const Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion')
-    ]);
+    recipe1 = const Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'salt, onion');
+    recipe2 = const Recipe(id: 2, name: 'Salad', category: 'Side', ingredients: 'Lettuce, Tomato');
+    recipeRepository = RecipeRepositoryImpl(recipes: [recipe1]);
     recipeBloc = RecipeBloc(
       addRecipe: AddRecipe(recipeRepository),
       alreadyExistRecipe: AlreadyExistRecipe(recipeRepository),
@@ -96,7 +98,7 @@ void main() {
   });
 
   testWidgets('Deleting all recipes updates the list', (WidgetTester tester) async {
-    recipeRepository.addRecipe(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'));
+    recipeRepository.addRecipe(recipe1);
     recipeRepository.deleteAllRecipes();
 
     await tester.pumpWidget(
@@ -116,8 +118,8 @@ void main() {
   });
 
   testWidgets('Searching recipes updates the list', (WidgetTester tester) async {
-    recipeRepository.addRecipe(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'));
-    recipeRepository.addRecipe(Recipe(id: 2, name: 'Salad', category: 'Side', ingredients: 'Lettuce, Tomato'));
+    recipeRepository.addRecipe(recipe1);
+    recipeRepository.addRecipe(recipe2);
 
     await tester.pumpWidget(
       MaterialApp(
@@ -138,8 +140,8 @@ void main() {
   });
 
   testWidgets('Filtering recipes updates the list', (WidgetTester tester) async {
-    recipeRepository.addRecipe(Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'));
-    recipeRepository.addRecipe(Recipe(id: 2, name: 'Salad', category: 'Side', ingredients: 'Lettuce, Tomato'));
+    recipeRepository.addRecipe(recipe1);
+    recipeRepository.addRecipe(recipe2);
 
     await tester.pumpWidget(
       MaterialApp(
@@ -184,6 +186,6 @@ void main() {
     expect(find.byType(RecipeDetailPage), findsOneWidget);
     expect(find.text('Pasta'), findsOneWidget);
     expect(find.text('Category: Main'), findsOneWidget);
-    expect(find.text('Salt, Onion'), findsOneWidget);
+    expect(find.text('salt, onion'), findsOneWidget);
   });
 }
