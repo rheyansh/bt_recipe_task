@@ -12,6 +12,9 @@ Bloc State Management
 ### Folder Structure
 ![Alt text](https://github.com/rheyansh/bt_recipe_task/blob/main/Screenshots/folder_struct.png)
 
+### Code coverage percentage = 
+73.7%
+
 ### Task performed
 	1.	Add recipe
 	2.	Edit recipe
