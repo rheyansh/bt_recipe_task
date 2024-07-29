@@ -13,8 +13,11 @@ import 'feature/domain/usecases/delete_recipe.dart';
 import 'feature/domain/usecases/edit_recipe.dart';
 import 'feature/domain/usecases/filter_recipes.dart';
 import 'feature/domain/usecases/search_recipes.dart';
+import 'core/service_locator.dart' as di;
 
 void main() {
+  di.setup();
+
   final recipeRepository = RecipeRepositoryImpl(recipes: [
     const Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'),
     const Recipe(id: 2, name: 'Salad', category: 'Side', ingredients: 'Lettuce, Tomato')
@@ -32,21 +35,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // init RecipeBloc by providing the required dependencies, using constructor injection
-
     return MaterialApp(
-      title: StringConst.appTitle,
+      title: 'Recipe Management',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: BlocProvider(
-        create: (context) => RecipeBloc(
-          addRecipe: AddRecipe(recipeRepository),
-          alreadyExistRecipe: AlreadyExistRecipe(recipeRepository),
-          deleteRecipe: DeleteRecipe(recipeRepository),
-          deleteAllRecipes: DeleteAllRecipes(recipeRepository),
-          editRecipe: EditRecipe(recipeRepository),
-          filterRecipes: FilterRecipes(recipeRepository),
-          searchRecipes: SearchRecipes(recipeRepository),
-        ),
+        create: (_) => di.getIt<RecipeBloc>(),
         child: const RecipeListPage(),
       ),
     );
