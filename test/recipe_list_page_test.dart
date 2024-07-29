@@ -138,7 +138,7 @@ void main() {
     expect(find.text('Pasta'), findsNothing);
     expect(find.text('Salad'), findsOneWidget);
   });
-
+  
   testWidgets('Filtering recipes updates the list', (WidgetTester tester) async {
     recipeRepository.addRecipe(recipe1);
     recipeRepository.addRecipe(recipe2);

@@ -14,8 +14,6 @@ part 'recipe_event.dart';
 part 'recipe_state.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
-
-  /* dependencies for the bloc to provide from outside of bloc init */
   final AddRecipe addRecipe;
   final AlreadyExistRecipe alreadyExistRecipe;
   final DeleteRecipe deleteRecipe;
@@ -24,10 +22,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final FilterRecipes filterRecipes;
   final SearchRecipes searchRecipes;
 
-  /* hold ongoing edit operation */
   int? _editableRecipeId;
-
-  /* Bloc constructor */
 
   RecipeBloc({
     required this.addRecipe,
@@ -38,8 +33,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     required this.filterRecipes,
     required this.searchRecipes,
   }) : super(RecipeInitial()) {
-
-    // load recipes
     on<LoadRecipesEvent>((event, emit) async {
       emit(RecipeLoadInProgress());
       try {
@@ -50,19 +43,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       }
     });
 
-    /* Map AddRecipeEvent to State */
-
     on<AddRecipeEvent>((event, emit) {
       Recipe recipe = event.recipe;
-      // check if valid recipe
-      if (recipe.isValid == false) {
-        // emit error
+      if (!recipe.isValid) {
         emit(const ErrorRecipe(StringConst.enterInputFields));
       } else if (alreadyExistRecipe(event.recipe)) {
-        // emit error
         emit(const ErrorRecipe(StringConst.recipeAlreadyExists));
       } else {
-        // add recipe
         if (_editableRecipeId != null) {
           final updatedRecipe = Recipe(
               id: _editableRecipeId!,
@@ -82,8 +69,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(RecipeLoadSuccess(searchedRecipes));
     });
 
-    /* Map DeleteRecipeEvent to State */
-
     on<DeleteRecipeEvent>((event, emit) {
       deleteRecipe(event.id);
       emit(RecipeDeleted());
@@ -91,21 +76,15 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(RecipeLoadSuccess(searchedRecipes));
     });
 
-    /* Map DeleteAllRecipesEvent to State */
-
     on<DeleteAllRecipesEvent>((event, emit) {
       deleteAllRecipes();
       emit(AllRecipesDeleted());
     });
 
-    /* Map GetAllRecipesEvent to State */
-
     on<GetAllRecipesEvent>((event, emit) {
       final searchedRecipes = searchRecipes("");
       emit(RecipeLoadSuccess(searchedRecipes));
     });
-
-    /* Map RecipeExistenceEvent to State */
 
     on<RecipeExistenceEvent>((event, emit) {
       bool isExists = alreadyExistRecipe(event.recipe);
@@ -114,8 +93,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       }
     });
 
-    /* Map EditRecipeEventAction to State */
-
     on<EditRecipeEventAction>((event, emit) {
       _editableRecipeId = event.recipe.id;
       emit(RecipeEditAction(event.recipe));
@@ -123,29 +100,22 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(RecipeLoadSuccess(searchedRecipes));
     });
 
-    /* Map ErrorRecipeEvent to State */
-
     on<ErrorRecipeEvent>((event, emit) {
       emit(ErrorRecipe(event.message));
       final searchedRecipes = searchRecipes("");
       emit(RecipeLoadSuccess(searchedRecipes));
     });
 
-    /* Map FilterRecipesEvent to State */
-
     on<FilterRecipesEvent>((event, emit) {
       final filteredRecipes = filterRecipes(event.category);
       emit(RecipeFilterSuccess(filteredRecipes));
     });
-
-    /* Map SearchRecipesEvent to State */
 
     on<SearchRecipesEvent>((event, emit) {
       final searchedRecipes = searchRecipes(event.query);
       emit(RecipeSearchSuccess(searchedRecipes));
     });
 
-    // Automatically load recipes on initialization
     add(LoadRecipesEvent());
   }
 }

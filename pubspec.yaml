@@ -41,6 +41,7 @@ dependencies:
   mockito: ^5.4.4
   bloc_test: ^9.1.7
   coverage: ^1.8.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
