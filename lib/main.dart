@@ -17,21 +17,12 @@ import 'core/service_locator.dart' as di;
 
 void main() {
   di.setup();
-
-  final recipeRepository = RecipeRepositoryImpl(recipes: [
-    const Recipe(id: 1, name: 'Pasta', category: 'Main', ingredients: 'Salt, Onion'),
-    const Recipe(id: 2, name: 'Salad', category: 'Side', ingredients: 'Lettuce, Tomato')
-  ]);
-
-  runApp(MyApp(
-    recipeRepository: recipeRepository,
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final RecipeRepository recipeRepository;
 
-  const MyApp({required this.recipeRepository});
+  const MyApp();
 
   @override
   Widget build(BuildContext context) {
